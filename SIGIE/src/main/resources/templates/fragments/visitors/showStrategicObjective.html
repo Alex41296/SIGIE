@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head lang="es">
+<title>Inform&aacute;tica Empresarial</title>
+</head>
+<body>
+	<div th:fragment="showStrategicObjective">
+		<section class="posts col-md-9">
+			<article class="post clearflix">
+				<div class="row">
+					<h2 class="titulos text-center">Objetivos Estrat&eacute;gicos</h2>
+					<div class="col-sm-12 text-justify">
+						<div class="row"><blockquote><p class="text-justify" th:text="${objectives}"></p></blockquote></div>
+						<div class="row"><h4 class="subtitle">Misi&oacute;n </h4>
+							<blockquote><p class="text-justify" th:text="${mision}"></p></blockquote></div>
+						<div class="row"><h4 class="subtitle">Visi&oacute;n </h4>
+							<blockquote><p class="text-justify" th:text="${vision}"></p></blockquote></div>
+					</div>
+				</div>
+			</article>
+		</section>
+	</div>
+</body>

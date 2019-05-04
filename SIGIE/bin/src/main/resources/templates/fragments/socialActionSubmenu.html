@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	<div th:fragment="socialActionSubmenu">
+		<p class="list-group-item active">
+			<span class="glyphicon glyphicon-hand-right"></span> Acci&oacute;n Social
+		</p>
+		<div th:if="${session.user} == 'anonymous'">
+			<a role="button" onclick="selectSubmenu('socialActionSubmenuShow', 'SocialAction');" class="list-group-item selected">Descripci&oacute;n</a>
+			<a role="button" onclick="selectSubmenu('socialActionSubmenuShow', 'CurrentSocialActionProjects');" class="list-group-item selected">Proyectos Vigentes</a> 
+			<a role="button" onclick="selectSubmenu('socialActionSubmenuShow', 'OldSocialActionProjects');" class="list-group-item">Proyectos A&ntilde;os Anteriores</a>
+		</div>
+		<div th:unless="${session.user} == 'anonymous'">
+			<a href="/showSocialActionAdmin" role="button" class="list-group-item selected">Descripci&oacute;n</a>
+			<a href="/showCurrentSocialActionProjectsAdmin" role="button" class="list-group-item">Proyectos Vigentes</a> 
+			<a href="/showOldSocialActionProjectsAdmin" role="button" class="list-group-item">Proyectos A&ntilde;os Anteriores</a>
+		</div>
+	</div>
+</html>

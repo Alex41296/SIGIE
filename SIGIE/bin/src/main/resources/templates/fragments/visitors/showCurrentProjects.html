@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+	<div th:fragment="showCurrentProjects">
+		<section class="posts col-md-9">
+			<article class="post clearflix">
+				<div class="row">
+					<h2 class="titulos text-center" th:text="${title}"></h2>
+					<div class="table-responsive">
+						<table class="table table-bordered table-hover">
+							<tr class="active encabezados">
+								<td>C&oacute;digo</td>
+								<td>Nombre</td>
+								<td>Descripci&oacute;n</td>
+								<td>Responsables</td>
+							</tr>
+							<tr th:each="entry : ${proyectos}">
+								<td><span th:text="${entry.codProyecto}"></span></td>
+								<td><span th:text="${entry.nombre}"></span></td>
+								<td><span th:text="${entry.descripcion}"></span></td>
+								<td>
+									<p th:each="index : ${entry.responsables}">
+										<span th:text="${index.responsable.nombreCompleto}"></span>
+									</p>
+									<br>
+								</td>
+							</tr>
+						</table>
+					</div>
+					<div class="alert alert-warning text-center"
+						th:if="${alert} == 'error'">
+						<strong><img src="/img/cancel.png"
+							th:src="@{/img/cancel.png}" /> No hay datos para mostrar,
+							intentelo m&aacute;s tarde</strong>
+					</div>
+				</div>
+			</article>
+		</section>
+	</div>
+</body>
+</html>

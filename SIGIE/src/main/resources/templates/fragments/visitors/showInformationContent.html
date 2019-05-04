@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head lang="es">
+<title th:text="${title}"></title>
+</head>
+<body>
+	<div th:fragment="showInformationContent">
+		<section class="posts col-md-9">
+			<article class="post clearflix">
+				<div class="row">
+					<h2 class="titulos text-center" th:text="${title}"></h2>
+					<div class="col-sm-12 text-justify" th:text="${information}"></div>
+				</div>
+			</article>
+		</section>
+	</div>
+</body>
+</html>

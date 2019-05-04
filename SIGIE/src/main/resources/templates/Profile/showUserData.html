@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head lang="es">
+<title>Perfil</title>
+<th:block th:include="/fragments/head :: head"></th:block>
+</head>
+<body>
+	<th:block
+		th:include="/fragments/administration/headerSubmenuAdmin :: headerSubmenuAdmin"></th:block>
+	<section class="main container">
+		<div class="row">
+			<div id="content">
+				<section class="posts col-md-9">
+					<!--espacio para la información -9 porque puse 3 de aside-->
+					<article class="post clearflix">
+						<h2 class="titulos text-center">Datos de Usuario</h2>
+						<div class="alert alert-success text-center"
+							th:if="${alert} == 'sucess'" id="alert">
+							<button type="button" class="close" data-dismiss="alert">&times;</button>
+							<strong>Su informaci&oacute; se ha actualizado con
+								&eacute;xito, deber&aacute; ingresar su nueva contraseña en su pr&oacute;ximo inicio de sesi&oacute;n</strong>
+						</div>
+						<div class="alert alert-warning text-center" id="alert"
+							th:if="${alert} == 'error'">
+							<button type="button" class="close" data-dismiss="alert">&times;</button>
+							<strong>Ha ocurrido un error intentelo m&aacute;s tarde!</strong>
+						</div>
+						<p>
+							<strong>Recinto de coordinaci&oacute;n:</strong> <span
+								th:text="${enclosure.nombreRecinto}"></span>
+						</p>
+
+
+						<form th:action="@{/editUser}" method="post" class="form-horizontal">
+							<div class="form-group">
+								<label class="control-label col-md-4" for="username">Usuario:</label>
+								<div class="col-md-4">
+									<input type="text" class="form-control" id="username" name="username" placeholder="Nombre Usuario"
+									th:value="${user.nombre_usuario}" readonly />
+								</div>
+							</div>
+							
+							<div class="form-group">
+								<label class="control-label col-md-4" for="password">Clave:</label>
+								<div class="col-md-4">
+									<input type="password" class="form-control" id="password" name="password" placeholder="Clave usuario" 
+									th:value="${user.clave_usuario}" required />
+								</div>
+							</div>
+	
+							<div class="form-group">
+								<div class="col-xs-6 col-md-2 col-md-offset-5">
+									<input type="submit" class="btn btn-primary btn-block" id="updateUser" name="updateUser" value="Actualizar" />
+								</div>
+							</div>
+						</form>
+					</article>
+				</section>
+			</div>
+			<aside class="col-md-3">
+				<div class="list-group">
+					<th:block th:include="/fragments/profileSubmenu :: profileSubmenu"></th:block>
+				</div>
+			</aside>
+		</div>
+	</section>
+	<th:block th:include="/fragments/footer :: footer"></th:block>
+</body>
+</html>

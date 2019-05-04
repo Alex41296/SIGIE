@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+	<div th:fragment="showStudyPlan">
+		<section class="posts col-md-9">
+			<article class="post clearflix">
+				<div class="row">
+					<h2 class="titulos text-center">Plan Estudios</h2>
+					<div class="table-responsive">
+						<table class="table table-bordered table-hover">
+							<tr class="active encabezados">
+								<td>C&oacute;digo</td>
+								<td>Ciclos</td>
+								<td>Documento</td>
+								<td>Tipo Ingreso</td>
+								<td></td>
+							</tr>
+							<tr th:each="entry : ${studyPlans}">
+								<td><span th:text="${entry.codPlanEstudio}"></span></td>
+								<td><span th:text="${entry.totalCiclos}"></span></td>
+								<td><span th:text="${entry.docPlanEstudios}"></span></td>
+								<td><span th:text="${entry.tipoIngreso.nombre}"></span></td>
+								<td><a role="button" th:onclick="'viewCourses(\''+${entry.codPlanEstudio}+'\');'">Ver Cursos</a></td>
+							</tr>
+						</table>
+					</div>
+					<div class="alert alert-warning text-center"
+						th:if="${alert} == 'error'">
+						<strong><img src="/img/cancel.png"
+							th:src="@{/img/cancel.png}" /> No hay datos para mostrar, intentelo m&aacute;s tarde</strong>
+					</div>
+				</div>
+			</article>
+		</section>
+	</div>
+</body>
+</html>

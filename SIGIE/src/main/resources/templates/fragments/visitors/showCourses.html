@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+	<div th:fragment="showCourses">
+		<section class="posts col-md-9">
+			<article class="post clearflix">
+				<div class="row">
+					<h2 class="titulos text-center">Cursos</h2>
+					<div class="table-responsive">
+						<table class="table table-bordered table-hover">
+							<tr class="active encabezados">
+								<td>Sigla</td>
+								<td>Nombre</td>
+								<td>Curso Carrera</td>
+								<td>Horas Ieor&iacute;a</td>
+								<td>Horas Pr&aacute;ctica</td>
+								<td>Horas Teoria-Pr&aacute;ctica</td>
+								<td>Cr&eacute;ditos</td>
+								<td>Programa de Curso</td>
+								<td>Nivel</td>
+							</tr>
+							<tr th:each="entry : ${courses}">
+								<td><span th:text="${entry.siglaCurso}"></span></td>
+								<td><span th:text="${entry.nombreCurso}"></span></td>
+								<td><span th:text="${entry.nombreCursoCarrera}"></span></td>
+								<td><span th:text="${entry.horasTeoria}"></span></td>
+								<td><span th:text="${entry.horasPractica}"></span></td>
+								<td><span th:text="${entry.horasTeoriasPractica}"></span></td>
+								<td><span th:text="${entry.cantidadCreditos}"></span></td>
+								<td><span th:text="${entry.programaCurso}"></span></td>
+								<td><span th:text="${entry.nivelCurso.nombreNivelCurso}"></span></td>
+							</tr>
+
+						</table>
+					</div>
+					<div class="alert alert-warning text-center"
+						th:if="${alert} == 'error'">
+						<strong><img src="/img/cancel.png"
+							th:src="@{/img/cancel.png}" /> No hay datos para mostrar,
+							intentelo m&aacute;s tarde</strong>
+					</div>
+					<div class="alert alert-info text-center"
+						th:if="${alert} == 'notdata'">
+						<strong><img src="/img/cancel.png"
+							th:src="@{/img/cancel.png}" /> No hay cursos asociados a este plan de estudios</strong>
+					</div>
+				</div>
+			</article>
+		</section>
+	</div>
+</body>
+</html>

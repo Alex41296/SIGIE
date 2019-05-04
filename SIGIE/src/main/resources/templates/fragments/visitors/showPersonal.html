@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+	<div th:fragment="showPersonal">
+		<section class="posts col-md-9">
+			<article class="post clearflix">
+				<div class="row">
+					<h2 class="titulos text-center" th:text="${title}"></h2>
+					<div class="table-responsive">
+						<table class="table table-bordered table-hover">
+							<tr class="active encabezados">
+								<td>Nombre</td>
+								<td>Correo</td>
+								<td>Especializaci&oacute;n</td>
+								<td>T&oacute;picos de Inter&eacute;s</td>
+								<td></td>
+							</tr>
+							<tr th:each="entry : ${teachers}">
+								<td><span th:text="${entry.nombre_docente}"></span> <span th:text="${entry.apellido_docente}"></span></td>
+								<td><span th:text="${entry.correo_docente}"></span></td>
+								<td><span th:text="${entry.especializacion}"></span></td>
+								<td>
+									<p th:if="${entry.topicosInteres.size() == 0}">
+										<span>Sin intereses</span>
+									</p>
+									<p th:unless="${entry.topicosInteres.size() == 0}" th:each="index : ${entry.topicosInteres}">
+										<span th:text="${index.nombre}"></span>
+									</p>
+								</td>
+								<td><a role="button" th:onclick="'viewTeacher(\''+${entry.cod_docente}+'\');'">Ver Detalle</a></td>
+							</tr>
+						</table>
+					</div>
+					<div class="alert alert-warning text-center"
+						th:if="${alert} == 'error'">
+						<strong><img src="/img/cancel.png"
+							th:src="@{/img/cancel.png}" /> No hay datos para mostrar,
+							intentelo m&aacute;s tarde</strong>
+					</div>
+					<div class="alert alert-warning text-center"
+						th:if="${alert} == 'notdata'">
+						<strong><img src="/img/cancel.png"
+							th:src="@{/img/cancel.png}" /> No hay datos para mostrar</strong>
+					</div>
+				</div>
+			</article>
+		</section>
+	</div>
+</body>
+</html>

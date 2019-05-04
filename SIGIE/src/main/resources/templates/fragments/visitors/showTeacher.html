@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+	<div th:fragment="showTeacher">
+		<section class="posts col-md-9">
+			<article class="post clearflix">
+				<div class="row">
+					<h2 class="titulos text-center">Detalle Docente</h2>
+					<div class="media">
+						<div class="media-left media-top">
+							<img src="img/img_avatar.png" class="media-object" style="width: 80px">
+						</div>
+						<div class="media-body">
+							<h4 class="media-heading">
+								<span th:text="${teacher.nombre_docente}"></span> <span th:text="${teacher.apellido_docente}"></span>
+							</h4>
+							<p><span>Correo: </span><span th:text="${teacher.correo_docente}"></span></p>
+							<p><span>Tel&eacute;fono Oficina: </span><span th:text="${teacher.telefono_oficina}"></span></p>
+							<p><span>Especializaci&oacute;n: </span><span th:text="${teacher.especializacion}"></span></p>
+							<p><span>T&oacute;picos de Inter&eacute;s: </span></p>
+							<blockquote>
+								<p th:if="${teacher.topicosInteres.size() == 0}">
+									<span>Sin intereses</span>
+								</p>
+								<p th:unless="${teacher.topicosInteres.size() == 0}"
+									th:each="index : ${teacher.topicosInteres}">
+									<span th:text="${index.nombre}"></span>
+								</p>
+							</blockquote>
+							<p><span>Recintos donde labora: </span></p>
+							<blockquote>
+								<p th:if="${teacher.recintos.size() > 0}" th:each="index : ${teacher.recintos}">
+									<span th:text="${index.nombreRecinto}"></span>
+								</p>
+								<p th:if="${teacher.recintos.size() == 0}">
+									<span>No se lograron obtener los recintos donde labora</span>
+								</p>
+							</blockquote>
+						</div>
+					</div>
+					<h2 class="subtitle text-left">Publicaciones</h2>
+					<div class="table-responsive" th:if="${publications.size() > 0}">
+						<table class="table table-bordered table-hover">
+							<tr class="active encabezados">
+								<td>T&iacute;tulo</td>
+								<td>Idioma</td>
+								<td>Fecha Publicaci&oacute;n</td>
+								<td>Descripci&oacute;n</td>
+								<td>Documento</td>
+								<td>Tipo</td>
+							</tr>
+							<tr th:each="entry : ${publications}">
+								<td><span th:text="${entry.tituloPublicacion}"></span></td>
+								<td><span th:text="${entry.idiomaPublicacion}"></span></td>
+								<td><span th:text="${entry.fechaPublicacion}"></span></td>
+								<td><span th:text="${entry.descripcionPublicacion}"></span></td>
+								<td><span th:text="${entry.archivoPublicacion}"></span></td>
+								<td><span th:text="${entry.tipoPublicacion.nombreTipoPublicacion}"></span></td>
+							</tr>
+						</table>
+					</div>
+					<div class="alert alert-warning text-center" th:if="${publications.size() == 0}">
+						<strong><img src="/img/cancel.png"
+							th:src="@{/img/cancel.png}" /> El docente no ha realizado ninguna publicaci&oacute;n</strong>
+					</div>
+					<div class="alert alert-warning text-center"
+						th:if="${alert} == 'error'">
+						<strong><img src="/img/cancel.png"
+							th:src="@{/img/cancel.png}" /> No hay datos para mostrar,
+							intentelo m&aacute;s tarde</strong>
+					</div>
+				</div>
+			</article>
+		</section>
+	</div>
+</body>
+</html>

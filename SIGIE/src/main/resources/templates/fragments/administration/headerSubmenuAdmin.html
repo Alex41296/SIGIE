@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+	<header th:fragment="headerSubmenuAdmin">
+		<th:block
+			th:include="/fragments/administration/initialHeaderAdmin :: initialHeaderAdmin"></th:block>
+
+		<nav class="navbar navbar-static-top" role="navigation">
+
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed"
+					data-toggle="collapse" data-target="#navegacion">
+					<span class="sr-only">Men&uacute;</span> <span
+						class="glyphicon glyphicon-menu-hamburger"></span>
+				</button>
+			</div>
+
+			<div class="collapse navbar-collapse" id="navegacion">
+				<ul class="nav navbar-nav">
+					<li class="active menuI"><a href="/homeAdministrator"
+						data-toggle="tooltip" title="Inicio"> <span
+							class="glyphicon glyphicon-home"></span> Inicio
+					</a></li>
+
+					<li class="menuI"><a href="/showProfile" role="button"> <span
+							class="glyphicon glyphicon-user"></span> Perfil
+					</a></li>
+
+					<li class="menuI"><a href="/showHistoryAdmin" role="button">
+							<span class="glyphicon glyphicon-education"></span> Acerca de IE
+					</a></li>
+
+					<li class="menuI"><a href="/showUndergraduateStudiesAdmin"
+						role="button"> <span class="glyphicon glyphicon-folder-open"></span>
+							Estudios de Pregrado
+					</a></li>
+
+					<li class="menuI"><a href="/showInvestigationAdmin"
+						role="button"> <span class="glyphicon glyphicon-search"></span>
+							Investigaci&oacute;n
+					</a></li>
+
+					<li class="menuI"><a href="/showSocialActionAdmin"
+						role="button"> <span class="glyphicon glyphicon-modal-window"></span>
+							Acci&oacute;n Social
+					</a></li>
+
+					<li class="menuI"><a href="/showTeachersAdmin" role="button">
+							<span class="glyphicon glyphicon-user"></span> Docentes
+					</a></li>
+
+					<li class="menuI"><a href="/showNewsAdmin" role="button">
+							<span class="glyphicon glyphicon-calendar"></span> Noticias
+					</a></li>
+
+					<li class="menuI"><a href="/showOrganizationsAdmin"
+						role="button"> <span class="glyphicon glyphicon-briefcase"></span>
+							Empresas
+					</a></li>
+
+					<li class="menuI"><a href="/showSuggestionAdmin" role="button">
+							<span class="glyphicon glyphicon-comment"></span> Sugerencias
+					</a></li>
+
+					<li class="menuI hidden-md hidden-lg"><a role="button"
+						data-target="#modalLogout" data-toggle="modal" title="Logout">
+							<span class="glyphicon glyphicon-log-out"></span> Cerrar
+							Sesi&oacute;n
+					</a></li>
+
+					<li class="menuI hidden-xs hidden-sm"><a role="button"
+						data-target="#modalLogout" data-toggle="modal" title="Logout">
+							<span class="glyphicon glyphicon-log-out"></span>
+					</a></li>
+				</ul>
+			</div>
+		</nav>
+		<div class="modal fade" id="modalLogout" role="dialog">
+			<div class="modal-dialog">
+				<!-- Modal content-->
+				<div class="modal-content">
+					<div class="modal-header alert alert-warning">
+						<button type="button" class="close" data-dismiss="modal">&times;</button>
+						<h4 class="modal-title">
+							<strong>Cerrar Sesi&oacute;n</strong>
+						</h4>
+					</div>
+					<div class="modal-body">
+						<p>
+							<strong>Esta seguro que desea cerrar sesi&oacute;n?</strong>
+						</p>
+					</div>
+					<div class="modal-footer">
+						<a th:href="@{/logout}" role="button" class="btn btn-danger">
+							Continuar </a>
+						<button type="button" class="btn btn-info" data-dismiss="modal">Cancelar</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</header>
+</body>
+</html>

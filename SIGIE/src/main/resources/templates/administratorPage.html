@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head lang="es">
+		<title>SIGIE</title>
+		<th:block th:include="/fragments/head :: head"></th:block>
+	</head>
+	<body>
+		<th:block th:include="/fragments/administration/headerSubmenuAdmin :: headerSubmenuAdmin"></th:block>
+		<section class="main container">
+			<div class="row">
+				<div  id="content">
+					<section class="posts col-md-9">
+						<!--espacio para la información -9 porque puse 3 de aside-->
+						<article class="post clearflix">
+							<h4 class="subtitle">Bienvenido al Sistema Gestor de Inform&aacute;tica Empresarial!</h4>
+							<p class="text-justify">SIGIE es un sistema que le permite al coordinador de la carrera Inform&aacute;tica Empresarial gestionar las 
+							actividades realizadas por dicha coordinaci&oacute;n. El prop&oacute;sito de este sistema es ayudar a los coordinadores 
+							con la gesti&oacute;n de la carrera durante su estancia en la coordinaci&oacute; y facilitar informaci&oacute;n 
+							importante a los estudiantes y dem&aacute;s usuarios que ingresen al sistema.</p>
+							<br>
+							<section class="posts col-md-6">
+								<div class="panel panel-info">
+      								<div class="panel-heading subtitle">Sugerencias sin responder</div>
+      									<div class="panel-body">Deben aparecer las sugerencias sin responder</div>
+    							</div>
+							</section>
+							<section class="posts col-md-6">
+								<div class="panel panel-info">
+      								<div class="panel-heading subtitle">Noticias Recientes</div>
+      									<div class="panel-body">Deben aparecer las noticias recientes</div>
+    							</div>
+							</section>
+						</article>
+					</section>
+				</div>
+				<th:block th:include="/fragments/aside :: aside"></th:block>
+			</div>	
+		</section>
+		<th:block th:include="/fragments/footer :: footer"></th:block>
+	</body>
+</html>

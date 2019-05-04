@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head lang="es">
+<title>SIGIE</title>
+<th:block th:include="/fragments/head :: head"></th:block>
+</head>
+<body>
+	<th:block
+		th:include="/fragments/visitors/headerSubmenu :: headerSubmenu"></th:block>
+	<section class="main container">
+		<div class="row">
+			<div id="content">
+				<section class="posts col-md-9">
+					<article class="post clearflix">
+						<h2 class="titulos text-center">Iniciar Sesi&oacute;n</h2>
+						<div class="alert alert-warning text-center"
+							th:if="${alert} == 'error'">
+							<strong><img src="/img/cancel.png"
+								th:src="@{/img/cancel.png}" /> Datos inv&aacute;lidos</strong>
+						</div>
+						<form th:action="@{/login/check}" action="" method="post" class="form-horizontal">
+							<div class="form-group">
+								<label class="control-label col-md-4" for="username">Usuario:</label>
+								<div class="col-md-4">
+									<input type="text" class="form-control" id="username" name="username" placeholder="Nombre Usuario" required />
+								</div>
+							</div>
+							
+							<div class="form-group">
+								<label class="control-label col-md-4" for="password">Clave:</label>
+								<div class="col-md-4">
+									<input type="password" class="form-control" id="password" name="password" placeholder="Clave usuario" required />
+								</div>
+							</div>
+	
+							<div class="form-group">
+								<div class="col-xs-6 col-md-2 col-md-offset-5">
+									<input type="submit" class="btn btn-primary btn-block" id="login" name="login" value="Ingresar" />
+								</div>
+							</div>
+						</form>						
+					</article>
+				</section>
+			</div>
+			<th:block th:include="/fragments/aside :: aside"></th:block>
+		</div>
+	</section>
+	<th:block th:include="/fragments/footer :: footer"></th:block>
+</body>
+</html>

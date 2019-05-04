@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head lang="es">
+<title>Coordinaci&oacute;n</title>
+<th:block th:include="/fragments/head :: head"></th:block>
+</head>
+<body>
+	<th:block
+		th:include="/fragments/administration/headerSubmenuAdmin :: headerSubmenuAdmin"></th:block>
+	<section class="main container">
+		<div class="row">
+			<div id="content">
+				<section class="posts col-md-9">
+					<article class="post clearflix">
+						<h2 class="titulos text-center">Memorias de Reuni&oacute;n</h2>
+						<div class="text-right">
+							<a role="button" class="btn btn-primary" data-target="#modal"
+								data-toggle="modal"> <span class="glyphicon glyphicon-plus"></span>
+								Agregar Memoria
+							</a>
+						</div>
+						<br>
+						<div class="alert alert-success text-center"
+							th:if="${alert} == 'sucess'" id="alert">
+							<button type="button" class="close" data-dismiss="alert">&times;</button>
+							<strong>Informaci&oacute;n actualizada</strong>
+						</div>
+						<div class="alert alert-warning text-center" id="alert"
+							th:if="${alert} == 'error'">
+							<button type="button" class="close" data-dismiss="alert">&times;</button>
+							<strong>Ha ocurrido un error intentelo m&aacute;s tarde!</strong>
+						</div>
+
+						<div class="table-responsive">
+							<table class="table table-bordered table-hover">
+								<tr class="active encabezados">
+									<td>C&oacute;digo</td>
+									<td>Fecha</td>
+									<td>Tipo</td>
+									<td>Documento</td>
+									<td></td>
+									<td></td>
+								</tr>
+								<tr th:if="${memories.size() > 0}" th:each="entry : ${memories}">
+									<td><span th:text="${entry.codMemoria}"></span></td>
+									<td><span th:text="${entry.fechaMemoria}"></span></td>
+									<td><span th:text="${entry.tipo}"></span></td>
+									<td><a href="#"><span th:text="${entry.documento}"></span></a></td>
+									<td><a role="button" data-toggle="modal"
+										title="Eliminar Memoria"
+										th:attr="data-target='#'+${entry.codMemoria}"> <span
+											class="glyphicon glyphicon-trash"></span>
+									</a>
+										<div class="modal fade" th:id="${entry.codMemoria}"
+											role="dialog">
+											<div class="modal-dialog">
+												<!-- Modal content-->
+												<div class="modal-content">
+													<div class="modal-header alert alert-warning">
+														<button type="button" class="close" data-dismiss="modal">&times;</button>
+														<h4 class="modal-title">
+															<strong>Eliminar Memoria de Reuni&oacute;n</strong>
+														</h4>
+													</div>
+													<div class="modal-body">
+														<p>
+															<strong>Esta seguro que desea eliminar la
+																memoria de reuni&oacute;n?</strong> Una vez realizada la
+															acci&oacute;n no podr&aacute; recuperar los datos
+															eliminados.
+														</p>
+													</div>
+													<div class="modal-footer">
+														<a
+															th:href="@{/deleteMemory(code=${entry.codMemoria},document=${entry.documento})}"
+															role="button" class="btn btn-danger"> Continuar </a>
+														<button type="button" class="btn btn-info"
+															data-dismiss="modal">Cancelar</button>
+													</div>
+												</div>
+											</div>
+										</div></td>
+									<td><a role="button" data-toggle="modal"
+										title="Actualizar Memoria"
+										th:attr="data-target='#update'+${entry.codMemoria}"> <span
+											class="glyphicon glyphicon-edit"></span>
+									</a>
+										<div class="modal fade" th:id="'update'+${entry.codMemoria}"
+											role="dialog">
+											<div class="modal-dialog">
+												<!-- Modal content-->
+												<div class="modal-content">
+													<div class="modal-header alert alert-info">
+														<button type="button" class="close" data-dismiss="modal">&times;</button>
+														<h4 class="modal-title">
+															<strong>Actualizar Memoria de Reuni&oacute;n</strong>
+														</h4>
+													</div>
+													<form th:action="@{/updateMemory}"
+														th:object="${memoryForm}" method="post"
+														class="form-horizontal" enctype="multipart/form-data">
+
+														<div class="modal-body">
+															<div class="form-group">
+																<label class="control-label col-md-4" for="codMemoria">C&oacute;digo:
+																</label>
+																<div class="col-md-6">
+																	<input type="number" class="form-control"
+																		id="codMemoria" name="codMemoria"
+																		th:value="${entry.codMemoria}" readonly />
+																</div>
+															</div>
+
+															<div class="form-group">
+																<label class="control-label col-md-4" for="fechaMemoria">Fecha:</label>
+																<div class="col-md-6">
+																	<input type="date" class="form-control"
+																		id="fechaMemoria" name="fechaMemoria"
+																		th:value="${entry.fechaMemoria}" readonly />
+																</div>
+															</div>
+
+															<div class="form-group">
+																<label class="control-label col-md-4" for="tipo">Tipo:</label>
+																<div class="col-md-6">
+																	<input type="text" class="form-control"
+																		th:value="${entry.tipo}" id="tipo" name="tipo"
+																		readonly />
+																</div>
+															</div>
+
+															<div class="form-group">
+																<label for="documento" class="control-label col-md-4">Documento:</label>
+																<div class="col-md-6">
+																	<input type="file" class="form-control"
+																		th:value="${entry.documento}" id="documento"
+																		name="documento" />
+																</div>
+															</div>
+														</div>
+														<div class="modal-footer">
+															<button type="submit" class="btn btn-primary">Guardar</button>
+															<button type="button" class="btn btn-danger"
+																data-dismiss="modal">Cancelar</button>
+														</div>
+													</form>
+												</div>
+											</div>
+										</div></td>
+								</tr>
+							</table>
+
+							<div class="alert alert-warning text-center"
+								th:unless="${memories.size() > 0}">
+								<strong> <img src="/img/cancel.png"
+									th:src="@{/img/cancel.png}" /> No se han registrado memorias
+									de reuni&oacute;n
+								</strong>
+							</div>
+						</div>
+
+						<!-- Modal -->
+						<div class="modal fade" id="modal" role="dialog">
+							<div class="modal-dialog">
+								<!-- Modal content-->
+								<div class="modal-content">
+									<div class="modal-header alert alert-warning">
+										<button type="button" class="close" data-dismiss="modal">&times;</button>
+										<h4 class="modal-title">
+											<strong>Nueva Memoria Reuni&oacute;n</strong>
+										</h4>
+									</div>
+									<form th:action="@{/newMemory}" method="post"
+										class="form-horizontal" enctype="multipart/form-data">
+										<div class="modal-body">
+											<div class="form-group">
+												<label class="control-label col-md-4" for="fechaMemoria">Fecha:</label>
+												<div class="col-md-6">
+													<input type="date" class="form-control" id="fechaMemoria"
+														name="fechaMemoria" required/>
+												</div>
+											</div>
+
+											<div class="form-group">
+												<label class="control-label col-md-4" for="tipo">Tipo:</label>
+												<div class="col-md-6">
+													<select class="form-control" id="tipo" name="tipo">
+														<option value="Acta">Acta</option>
+														<option value="Minuta">Minuta</option>
+													</select>
+												</div>
+											</div>
+
+											<div class="form-group">
+												<label for="documento" class="control-label col-md-4">Documento:</label>
+												<div class="col-md-6">
+													<input type="file" class="form-control" id="documento"
+														name="documento" required/>
+												</div>
+											</div>
+										</div>
+										<div class="modal-footer">
+											<button type="submit" class="btn btn-primary">Guardar</button>
+											<button type="button" class="btn btn-danger"
+												data-dismiss="modal">Cancelar</button>
+										</div>
+									</form>
+								</div>
+							</div>
+						</div>
+					</article>
+				</section>
+			</div>
+			<aside class="col-md-3">
+				<div class="list-group">
+					<th:block th:include="/fragments/aboutIESubmenu :: aboutIESubmenu"></th:block>
+				</div>
+			</aside>
+		</div>
+	</section>
+	<th:block th:include="/fragments/footer :: footer"></th:block>
+</body>
+</html>

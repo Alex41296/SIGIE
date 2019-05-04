@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+	<div th:fragment="showSuggestionForm">
+		<section class="posts col-md-9">
+			<article class="post clearflix">
+				<div class="row">
+					<h2 class="titulos text-center">Enviar Sugerencia</h2>
+					<div class="alert alert-warning text-center"
+						th:if="${alert} == 'error'" id="alert">
+						<button type="button" class="close" data-dismiss="alert">&times;</button>
+						<strong><img src="/img/cancel.png"
+							th:src="@{/img/cancel.png}" /> No se logr&oacute; enviar su sugerencia, intentelo m&aacute;s tarde</strong>
+					</div>
+					<div class="alert alert-warning text-center"
+						th:if="${alert} == 'sucess'" id="alert">
+						<button type="button" class="close" data-dismiss="alert">&times;</button>
+						<strong><img src="/img/cancel.png"
+							th:src="@{/img/checked.png}" /> Su sugerencia se ha enviado al encargado del recinto con &eacute;xito</strong>
+					</div>
+					<form th:object="${suggestionForm}" th:action="@{/sendSuggestion}"
+						action="#" method="post" class="form-horizontal">
+
+						<div class="form-group">
+							<label for="recintos" class="control-label col-md-4">Recinto:</label>
+							<div class="col-md-6">
+								<select class="form-control"
+									id="codRecinto" name="codRecinto">
+									<option th:value="31">Turrialba</option>
+									<option th:value="32">Para&iacute;so</option>
+									<option th:value="33">Gu&aacute;piles</option>
+								</select>
+							</div>
+						</div>
+						
+						<div class="form-group">
+							<label class="control-label col-md-4" for="correo">Correo:</label>
+							<div class="col-md-6">
+								<input type="email"
+									class="form-control" id="correo" name="correo"
+									placeholder="Correo" required />
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label class="control-label col-md-4" for="nombre">Su nombre: </label>
+							<div class="col-md-6">
+								<input type="text"
+									class="form-control" id="nombre"
+									name="nombre" placeholder="Nombre Completo" required/>
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label class="control-label col-md-4" for="opinion">Opini&oacute;n:</label>
+							<div class="col-md-6">
+								<textarea class="form-control"
+									id="opinion" name="opinion"
+									placeholder="Opini&oacute;n" required></textarea>
+							</div>
+						</div>
+
+						<div class="form-group">
+							<div class="col-xs-6 col-md-2 col-md-offset-5">
+								<input type="submit" class="btn btn-primary btn-block"
+									id="guardarSugerencia"  name="guardarSugerencia" value="Enviar" />
+							</div>
+						</div>
+						<br>
+					</form>
+				</div>
+			</article>
+		</section>
+	</div>
+</body>
+</html>

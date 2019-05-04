@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head lang="es">
+<title>Carrera</title>
+<th:block th:include="/fragments/head :: head"></th:block>
+</head>
+<body>
+	<th:block
+		th:include="/fragments/administration/headerSubmenuAdmin :: headerSubmenuAdmin"></th:block>
+	<section class="main container">
+		<div class="row">
+			<div id="content">
+				<section class="posts col-md-9">
+					<article class="post clearflix">
+						<h2 class="titulos text-center" th:text="${title}"></h2>
+						<div class="text-right">
+							<div class="row">
+								<div class="col-md-12 text-right">
+									<a role="button" class="btn btn-primary" data-target="#modal"
+										data-toggle="modal"> <span class="glyphicon glyphicon-edit"></span>
+										Editar Proyecto
+									</a>
+								</div>
+							</div>
+						</div>
+						<br>
+						<div class="alert alert-success text-center"
+							th:if="${alert} == 'sucess'" id="alert">
+							<button type="button" class="close" data-dismiss="alert">&times;</button>
+							<strong>Informaci&oacute;n actualizada con &eacute;xito.</strong>
+						</div>
+						<div class="alert alert-warning text-center"
+							th:if="${alert} == 'error'">
+							<button type="button" class="close" data-dismiss="alert">&times;</button>
+							<strong>Ha ocurrido un error intentelo m&aacute;s tarde!</strong>
+						</div>
+
+						<div class="row">
+							<div class="table-responsive">
+								<table class="table table-bordered table-hover">
+									<tr class="active encabezados">
+										<td>C&oacute;digo</td>
+										<td>Nombre</td>
+										<td>Periodo Vigencia</td>
+										<td>Descripci&oacute;</td>
+										<td>Responsables</td>
+										<td></td><td></td>
+									</tr>
+									<tr>
+										<td><span th:text="${project.codProyecto}"></span></td>
+										<td><span th:text="${project.nombre}"></span></td>
+										<td><span th:text="${project.periodoVigencia}"></span></td>
+										<td><span th:text="${project.descripcion}"></span></td>
+										<td><p th:if="${project.responsables.size() }" th:each="index : ${project.responsables}">
+											<span th:text="${index.responsable.nombreCompleto}"></span>
+										</p>
+										<br></td>
+										<td></td>
+										<td><a role="button" data-toggle="modal"
+											title="Eliminar Proyecto"
+											th:attr="data-target='#'+${project	.codProyecto}"> <span
+												class="glyphicon glyphicon-trash"></span>
+										</a>
+											<div class="modal fade" th:id="${project.codProyecto}"
+												role="dialog">
+												<div class="modal-dialog">
+													<!-- Modal content-->
+													<div class="modal-content">
+														<div class="modal-header alert alert-warning">
+															<button type="button" class="close" data-dismiss="modal">&times;</button>
+															<h4 class="modal-title">
+																<strong>Eliminar Proyecto</strong>
+															</h4>
+														</div>
+														<div class="modal-body">
+															<p>
+																<strong>Esta seguro que desea eliminar el
+																	Proyecto?</strong> Una vez realizada la acci&oacute;n no
+																podr&aacute; recuperar los datos eliminados.
+															</p>
+														</div>
+														<div class="modal-footer">
+															<a
+																th:href="@{/deleteCurrentProject(area=${area}, code=${project.codProyecto})}"
+																role="button" class="btn btn-danger"> Continuar </a>
+															<button type="button" class="btn btn-info"
+																data-dismiss="modal">Cancelar</button>
+														</div>
+													</div>
+												</div>
+											</div>
+										</td>
+									</tr>
+								</table>
+							</div>
+							
+						</div>
+						
+						<!-- Modal -->
+						<div class="modal fade" id="modal" role="dialog">
+							<div class="modal-dialog">
+								<!-- Modal content-->
+								<div class="modal-content">
+									<div class="modal-header alert alert-success">
+										<button type="button" class="close" data-dismiss="modal">&times;</button>
+										<h4 class="modal-title">
+											<strong>Nuevo Proyecto</strong>
+										</h4>
+									</div>
+
+									<form th:action="@{/saveProject}" th:object="${projectForm}"
+										method="post" class="form-horizontal">
+
+										<div class="modal-body">
+
+											<div class="form-group">
+												<label class="control-label col-md-4" for="area">&Aacute;rea:</label>
+												<div class="col-md-6">
+													<input type="number"
+														class="form-control hidden-xs hidden-sm hidden-md hidden-lg"
+														id="area" name="area" th:value="${area}" readonly />
+												</div>
+											</div>
+
+											<div class="form-group">
+												<label class="control-label col-md-4" for="codProyecto">C&oacute;digo:</label>
+												<div class="col-md-6">
+													<input type="text" class="form-control" id="codProyecto"
+														name="codProyecto" placeholder="Código Proyecto" required />
+												</div>
+											</div>
+
+											<div class="form-group">
+												<label class="control-label col-md-4" for="nombre">Nombre:</label>
+												<div class="col-md-6">
+													<input type="text" class="form-control" id="nombre"
+														name="nombre" placeholder="Nombre" required />
+												</div>
+											</div>
+
+											<div class="form-group">
+												<label class="control-label col-md-4" for="periodoVigencia">Periodo
+													de Vigencia:</label>
+												<div class="col-md-6">
+													<select class="form-control" id="periodoVigencia" name="periodoVigencia">
+														<option value="En Progreso">En progreso</option>
+														<option value="Concluido">Concluido</option>
+													</select>
+												</div>
+											</div>
+
+											<div class="form-group">
+												<label class="control-label col-md-4" for="horasTeoria">Descripci&oacute;n:</label>
+												<div class="col-md-6">
+													<textarea class="form-control" id="descripcion"
+														name="descripcion" rows="5" required></textarea>
+												</div>
+											</div>											
+										</div>
+										<div class="modal-footer">
+											<button type="submit" class="btn btn-primary">Guardar</button>
+											<button type="button" class="btn btn-danger"
+												data-dismiss="modal">Cancelar</button>
+										</div>
+									</form>
+								</div>
+							</div>
+						</div>
+					</article>
+				</section>
+			</div>
+			<aside class="col-md-3">
+				<div class="list-group">
+					<th:block th:if="${area} == 'investigation'"
+						th:include="/fragments/investigationSubmenu :: investigationSubmenu"></th:block>
+					<th:block th:unless="${area} == 'investigation'"
+						th:include="/fragments/socialActionSubmenu :: socialActionSubmenu"></th:block>
+				</div>
+			</aside>
+		</div>
+	</section>
+	<th:block th:include="/fragments/footer :: footer"></th:block>
+</body>
+</html>

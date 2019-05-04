@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head lang="es">
+<title>Carrera</title>
+<th:block th:include="/fragments/head :: head"></th:block>
+</head>
+<body>
+	<th:block
+		th:include="/fragments/administration/headerSubmenuAdmin :: headerSubmenuAdmin"></th:block>
+	<section class="main container">
+		<div class="row">
+			<div id="content">
+				<section class="posts col-md-9">
+					<article class="post clearflix">
+						<h2 class="titulos text-center">Cursos</h2>
+						<div class="row">
+							<div class="col-md-4 text-left">
+								<a href="/showStudyPlanAdmin" role="button"
+									class="btn btn-primary"> <span
+									class="	glyphicon glyphicon-circle-arrow-left"></span> Regresar
+								</a>
+							</div>
+							<div class="col-md-8 text-right">
+								<a role="button" class="btn btn-primary" data-target="#modal"
+									data-toggle="modal"> <span class="glyphicon glyphicon-plus"></span>
+									Agregar Curso
+								</a>
+							</div>
+						</div>
+						<br>
+						<div class="alert alert-success text-center"
+							th:if="${alert} == 'sucess'" id="alert">
+							<button type="button" class="close" data-dismiss="alert">&times;</button>
+							<strong>Datos Actualizados</strong>
+						</div>
+						<div class="alert alert-warning text-center" id="alert"
+							th:if="${alert} == 'error'">
+							<button type="button" class="close" data-dismiss="alert">&times;</button>
+							<strong>Ha ocurrido un error intentelo m&aacute;s tarde!</strong>
+						</div>
+
+						<div class="table-responsive" th:if="${courses.size() > 0}">
+							<table class="table table-bordered table-hover">
+								<tr class="active encabezados">
+									<td>C&oacute;digo Plan Estudio</td>
+									<td>Sigla</td>
+									<td>Nombre</td>
+									<td>Curso Carrera</td>
+									<td>Horas Ieor&iacute;a</td>
+									<td>Horas Pr&aacute;ctica</td>
+									<td>Horas Teoria-Pr&aacute;ctica</td>
+									<td>Cr&eacute;ditos</td>
+									<td>Programa de Curso</td>
+									<td>Nivel</td>
+									<td></td>
+									<td></td>
+								</tr>
+								<tr th:each="entry : ${courses}">
+									<td><span th:text="${codePlan}"></span></td>
+									<td><span th:text="${entry.siglaCurso}"></span></td>
+									<td><span th:text="${entry.nombreCurso}"></span></td>
+									<td><span th:text="${entry.nombreCursoCarrera}"></span></td>
+									<td><span th:text="${entry.horasTeoria}"></span></td>
+									<td><span th:text="${entry.horasPractica}"></span></td>
+									<td><span th:text="${entry.horasTeoriasPractica}"></span></td>
+									<td><span th:text="${entry.cantidadCreditos}"></span></td>
+									<td><span th:text="${entry.programaCurso}"></span></td>
+									<td><span th:text="${entry.nivelCurso.nombreNivelCurso}"></span></td>
+									<td><a role="button" data-toggle="modal"
+										title="Eliminar Curso"
+										th:attr="data-target='#'+${entry.siglaCurso}"> <span
+											class="glyphicon glyphicon-trash"></span>
+									</a>
+										<div class="modal fade" th:id="${entry.siglaCurso}"
+											role="dialog">
+											<div class="modal-dialog">
+												<!-- Modal content-->
+												<div class="modal-content">
+													<div class="modal-header alert alert-warning">
+														<button type="button" class="close" data-dismiss="modal">&times;</button>
+														<h4 class="modal-title">
+															<strong>Eliminar Curso</strong>
+														</h4>
+													</div>
+													<div class="modal-body">
+														<p>
+															<strong>Esta seguro que desea eliminar el Curso?</strong>
+															Una vez realizada la acci&oacute;n no podr&aacute;
+															recuperar los datos eliminados.
+														</p>
+													</div>
+													<div class="modal-footer">
+														<a
+															th:href="@{/deleteCourse(code=${entry.siglaCurso}, codePlan=${codePlan})}"
+															role="button" class="btn btn-danger"> Continuar </a>
+														<button type="button" class="btn btn-info"
+															data-dismiss="modal">Cancelar</button>
+													</div>
+												</div>
+											</div>
+										</div></td>
+									<td><a role="button" data-toggle="modal"
+										title="Actualizar Curso"
+										th:attr="data-target='#update'+${entry.siglaCurso}"> <span
+											class="glyphicon glyphicon-edit"></span>
+									</a>
+										<div class="modal fade" th:id="'update'+${entry.siglaCurso}"
+											role="dialog">
+											<div class="modal-dialog">
+												<!-- Modal content-->
+												<div class="modal-content">
+													<div class="modal-header alert alert-info">
+														<button type="button" class="close" data-dismiss="modal">&times;</button>
+														<h4 class="modal-title">
+															<strong>Actualizar Curso</strong>
+														</h4>
+													</div>
+
+													<form th:object="${courseForm}" th:action="@{/updateCourse}" method="post"
+														class="form-horizontal" enctype="multipart/form-data">
+														<div class="modal-body">
+															<div class="form-group">
+																<label class="control-label col-md-4" for="siglaCurso">Sigla
+																	del Curso:</label>
+																<div class="col-md-6">
+																	<input type="text" th:value="${entry.siglaCurso}"
+																		class="form-control" id="siglaCurso" name="siglaCurso"
+																		readonly />
+																</div>
+															</div>
+
+															<div class="form-group">
+																<label class="control-label col-md-4" for="nombreCurso">Nombre:</label>
+																<div class="col-md-6">
+																	<input type="text" th:value="${entry.nombreCurso}"
+																		class="form-control" id="nombreCurso"
+																		name="nombreCurso" required />
+																</div>
+															</div>
+
+															<div class="form-group">
+																<label class="control-label col-md-4"
+																	for="nombreCursoCarrera">Nombre curso carrera:</label>
+																<div class="col-md-6">
+																	<input type="text"
+																		th:value="${entry.nombreCursoCarrera}"
+																		class="form-control" id="nombreCursoCarrera"
+																		name="nombreCursoCarrera" required />
+																</div>
+															</div>
+
+															<div class="form-group">
+																<label class="control-label col-md-4" for="horasTeoria">Horas
+																	te&oacute;ricas:</label>
+																<div class="col-md-6">
+																	<input type="number" th:value="${entry.horasTeoria}"
+																		class="form-control" id="horasTeoria"
+																		name="horasTeoria" required />
+																</div>
+															</div>
+
+															<div class="form-group">
+																<label class="control-label col-md-4"
+																	for="horasPractica">Horas pr&aacute;cticas:</label>
+																<div class="col-md-6">
+																	<input type="number" th:value="${entry.horasPractica}"
+																		class="form-control" id="horasPractica"
+																		name="horasPractica" required />
+																</div>
+															</div>
+
+															<div class="form-group">
+																<label class="control-label col-md-4"
+																	for="horasTeoriasPractica">Horas
+																	te&oacute;ria-pr&aacute;ctica:</label>
+																<div class="col-md-6">
+																	<input type="number"
+																		th:value="${entry.horasTeoriasPractica}"
+																		class="form-control" id="horasTeoriasPractica"
+																		name="horasTeoriasPractica" required />
+																</div>
+															</div>
+
+															<div class="form-group">
+																<label class="control-label col-md-4"
+																	for="cantidadCreditos">Cr&eacute;ditos:</label>
+																<div class="col-md-6">
+																	<input type="number"
+																		th:value="${entry.cantidadCreditos}"
+																		class="form-control" id="cantidadCreditos"
+																		name="cantidadCreditos" required />
+																</div>
+															</div>
+
+															<div class="form-group">
+																<label class="control-label col-md-4"
+																	for="programaCurso">Programa del curso:</label>
+																<div class="col-md-6">
+																	<input type="file" th:value="${entry.programaCurso}"
+																		class="form-control" id="programaCurso"
+																		name="programaCurso" required />
+																</div>
+															</div>
+
+
+															<div class="form-group">
+																<label for="nivelCurso" class="control-label col-md-4">Nivel
+																	del curso:</label>
+																<div class="col-md-6">
+																	<select class="form-control" id="nivelCurso"
+																		name="nivelCurso">
+																		<option th:each="nivel: ${levels}"
+																			th:value="${nivel.codNivelCurso}"
+																			th:text="${nivel.nombreNivelCurso}"></option>
+																	</select>
+																</div>
+															</div>
+
+															<div class="form-group">
+																<label for="nivelActual" class="control-label col-md-4">Nivel
+																	del curso Actual:</label>
+																<div class="col-md-6">
+																	<input type="text"
+																		th:value="${entry.nivelCurso.nombreNivelCurso}"
+																		class="form-control" id="nivelActual"
+																		name="nivelActual" readonly />
+																</div>
+															</div>
+
+															<div class="form-group">
+																<label for="codPlanEstudio"
+																	class="control-label col-md-4">Plan de
+																	Estudios:</label>
+																<div class="col-md-6">
+																	<input type="text" th:value="${entry.codPlanEstudio}"
+																		class="form-control" id="codPlanEstudio"
+																		name="codPlanEstudio" readonly />
+																</div>
+															</div>
+														</div>
+
+														<div class="modal-footer">
+															<button type="submit" class="btn btn-primary">Guardar</button>
+															<button type="button" class="btn btn-danger"
+																data-dismiss="modal">Cancelar</button>
+														</div>
+													</form>
+												</div>
+											</div>
+										</div></td>
+								</tr>
+							</table>
+						</div>
+
+						<div class="alert alert-warning text-center"
+							th:if="${courses.size() == 0}">
+							<strong><img src="/img/cancel.png"
+									th:src="@{/img/cancel.png}" /> No hay cursos almacenados para este plan de estudios</strong>
+						</div>
+
+						<!-- Modal -->
+						<div class="modal fade" id="modal" role="dialog">
+							<div class="modal-dialog">
+								<!-- Modal content-->
+								<div class="modal-content">
+									<div class="modal-header alert alert-success">
+										<button type="button" class="close" data-dismiss="modal">&times;</button>
+										<h4 class="modal-title">
+											<strong>Nuevo Curso</strong>
+										</h4>
+									</div>
+
+									<form th:action="@{/saveCourse}" th:object="${courseForm}"
+										method="post" class="form-horizontal" enctype="multipart/form-data">
+
+										<div class="modal-body">
+											<div class="form-group">
+												<label class="control-label col-md-4" for="siglaCurso">Sigla
+													del Curso:</label>
+												<div class="col-md-6">
+													<input type="text" class="form-control" id="siglaCurso"
+														name="siglaCurso" placeholder="Sigla del Curso" required />
+												</div>
+											</div>
+
+											<div class="form-group">
+												<label class="control-label col-md-4" for="nombreCurso">Nombre:</label>
+												<div class="col-md-6">
+													<input type="text" class="form-control" id="nombreCurso"
+														name="nombreCurso" placeholder="Nombre" required />
+												</div>
+											</div>
+
+											<div class="form-group">
+												<label class="control-label col-md-4"
+													for="nombreCursoCarrera">Nombre curso carrera:</label>
+												<div class="col-md-6">
+													<input type="text" class="form-control"
+														id="nombreCursoCarrera" name="nombreCursoCarrera"
+														placeholder="Nombre curso carrera" required />
+												</div>
+											</div>
+
+											<div class="form-group">
+												<label class="control-label col-md-4" for="horasTeoria">Horas
+													te&oacute;ricas:</label>
+												<div class="col-md-6">
+													<input type="number"
+														class="form-control" id="horasTeoria" name="horasTeoria"
+														placeholder="Horas te&oacute;ricas" required />
+												</div>
+											</div>
+
+											<div class="form-group">
+												<label class="control-label col-md-4" for="horasPractica">Horas
+													pr&aacute;cticas:</label>
+												<div class="col-md-6">
+													<input type="number" class="form-control"
+														id="horasPractica" name="horasPractica"
+														placeholder="Horas pr&acute;cticas" required />
+												</div>
+											</div>
+
+											<div class="form-group">
+												<label class="control-label col-md-4"
+													for="horasTeoriasPractica">Horas
+													teor&iacute;a-pr&aacute;ctica:</label>
+												<div class="col-md-6">
+													<input type="number" class="form-control"
+														id="horasTeoriasPractica" name="horasTeoriasPractica"
+														placeholder="Horas teor&iacute;a-pr&aacute;ctica" required />
+												</div>
+											</div>
+
+											<div class="form-group">
+												<label class="control-label col-md-4" for="cantidadCreditos">Cr&eacute;ditos:</label>
+												<div class="col-md-6">
+													<input type="number" class="form-control"
+														id="cantidadCreditos" name="cantidadCreditos"
+														placeholder="Cr&eacute;ditos" required />
+												</div>
+											</div>
+
+											<div class="form-group">
+												<label class="control-label col-md-4" for="programaCurso">Programa
+													del curso:</label>
+												<div class="col-md-6">
+													<input type="file" class="form-control" id="programaCurso"
+														name="programaCurso" placeholder="Programa del curso"
+														required />
+												</div>
+											</div>
+
+
+											<div class="form-group">
+												<label for="nivelCurso" class="control-label col-md-4">Nivel
+													del curso:</label>
+												<div class="col-md-6">
+													<select class="form-control" id="nivelCurso"
+														name="nivelCurso">
+														<option th:each="nivel: ${levels}"
+															th:value="${nivel.codNivelCurso}"
+															th:text="${nivel.nombreNivelCurso}"></option>
+													</select>
+												</div>
+											</div>
+
+											<div class="form-group">
+												<label for="codPlanEstudio" class="control-label col-md-4">Plan
+													de Estudios:</label>
+												<div class="col-md-6">
+													<input type="number" th:value="${codePlan}"
+														class="form-control" id="codPlanEstudio"
+														name="codPlanEstudio" readonly />
+												</div>
+											</div>
+										</div>
+										<div class="modal-footer">
+											<button type="submit" class="btn btn-primary">Guardar</button>
+											<button type="button" class="btn btn-danger"
+												data-dismiss="modal">Cancelar</button>
+										</div>
+									</form>
+								</div>
+							</div>
+						</div>
+					</article>
+				</section>
+			</div>
+			<aside class="col-md-3">
+				<div class="list-group">
+					<th:block th:include="/fragments/aboutIESubmenu :: aboutIESubmenu"></th:block>
+				</div>
+			</aside>
+		</div>
+	</section>
+	<th:block th:include="/fragments/footer :: footer"></th:block>
+</body>
+</html>

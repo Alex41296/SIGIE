@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head lang="es">
+<title>Perfil</title>
+<th:block th:include="/fragments/head :: head"></th:block>
+</head>
+<body>
+	<th:block
+		th:include="/fragments/administration/headerSubmenuAdmin :: headerSubmenuAdmin"></th:block>
+	<section class="main container">
+		<div class="row">
+			<div id="content">
+				<section class="posts col-md-9">
+					<!--espacio para la información -9 porque puse 3 de aside-->
+					<article class="post clearflix">
+						<h2 class="titulos text-center">Actualizar Publicaci&oacute;n</h2>
+						<div class="alert alert-success text-center"
+							th:if="${alert} == 'sucess'" id="alert">
+							<button type="button" class="close" data-dismiss="alert">&times;</button>
+							<strong>Se ha actualizado con &eacute;xito!</strong>
+						</div>
+						<div class="alert alert-danger text-center" id="alert"
+							th:if="${alert} == 'error'">
+							<button type="button" class="close" data-dismiss="alert">&times;</button>
+							<strong>Oh no!</strong> Ha ocurrido un error intentelo m&aacute;s tarde!
+						</div>
+						<div class="alert alert-info text-center" id="alert"
+							th:if="${message} != null">
+							<button type="button" class="close" data-dismiss="alert">&times;</button>
+							<strong th:text="${message}"></strong>
+						</div>
+
+						<form th:object="${publicationForm}"
+							th:action="@{/updatePublication/save}" method="post"
+							class="form-horizontal">
+							<div class="col-md-6">
+								<div class="form-group">
+									<label for="codPublicacion" class="control-label col-md-5">C&oacute;digo:
+									</label>
+									<div class="col-md-7">
+										<input type="number" class="form-control " id="codPublicacion"
+											name="codPublicacion"
+											th:value="${publication.codPublicacion}" readonly />
+									</div>
+								</div>
+								<div class="form-group">
+									<label for="tituloPublicacion" class="control-label col-md-5">T&iacute;tulo:
+									</label>
+									<div class="col-md-7">
+										<input type="text" class="form-control" id="tituloPublicacion"
+											name="tituloPublicacion"
+											th:value="${publication.tituloPublicacion}" />
+									</div>
+								</div>
+								<div class="form-group">
+									<label for="idiomaPublicacion" class="control-label col-md-5">Idioma:
+									</label>
+									<div class="col-md-7">
+										<input type="text" class="form-control" id="idiomaPublicacion"
+											name="idiomaPublicacion"
+											th:value="${publication.idiomaPublicacion}" />
+									</div>
+								</div>
+								<div class="form-group">
+									<label for="fechaPublicacion" class="control-label col-md-5">Fecha
+										Publicaci&oacute;n: </label>
+									<div class="col-md-7">
+										<input type="date" class="form-control" id="fechaPublicacion"
+											name="fechaPublicacion"
+											th:value="${publication.fechaPublicacion}" />
+									</div>
+								</div>
+							</div>
+							<div class="col-md-6">
+								<div class="form-group">
+									<label for="descripcionPublicacion"
+										class="control-label col-md-5">Descripci&oacute;n: </label>
+									<div class="col-md-7">
+										<textarea class="form-control"
+											th:text="${publication.descripcionPublicacion}"
+											id="descripcionPublicacion" name="descripcionPublicacion"
+											required></textarea>
+									</div>
+								</div>
+								<div class="form-group">
+									<label for="archivoPublicacion" class="control-label col-md-5">Ruta
+										del documento: </label>
+									<div class="col-md-7">
+										<input type="text" class="form-control"
+											id="archivoPublicacion" name="archivoPublicacion"
+											th:value="${publication.archivoPublicacion}" />
+									</div>
+								</div>
+								<div class="form-group">
+									<label for="tipoPublicacion" class="control-label col-md-5">Tipo:
+									</label>
+									<div class="col-md-5">
+										<select class="form-control" id="tipoPublicacion"
+											name="tipoPublicacion">
+											<option th:each="type: ${publicationTypes}"
+												th:value="${type.codTipoPublicacion}"
+												th:text="${type.nombreTipoPublicacion}"></option>
+										</select>
+									</div>
+									<div class="col-md-1">
+										<a role="button" class="btn btn-primary"
+											title="Agregar otro" data-toggle="modal" data-target="#modal">
+											<span class="glyphicon glyphicon-plus"></span>
+										</a>
+									</div>
+								</div>
+								<div class="form-group">
+									<label for="codDocente" class="control-label col-md-5">Docente:
+									</label>
+									<div class="col-md-7">
+										<input type="text" class="form-control" id="codDocente"
+											name="codDocente" th:value="${teacher.nombre_docente}"
+											readonly />
+									</div>
+								</div>
+							</div>
+
+							<div class="form-group">
+								<div class="col-xs-12 col-md-2 col-md-offset-5">
+									<input type="submit" class="btn btn-primary btn-block"
+										id="editProfile" name="editProfile" value="Actualizar" />
+								</div>
+							</div>
+						</form>
+
+						<!-- Modal -->
+						<div class="modal fade" id="modal" role="dialog">
+							<div class="modal-dialog">
+								<!-- Modal content-->
+								<div class="modal-content">
+									<div class="modal-header alert alert-success">
+										<button type="button" class="close" data-dismiss="modal">&times;</button>
+										<h4 class="modal-title">
+											<strong>Nuevo Tipo Publicaci&oacute;n</strong>
+										</h4>
+									</div>
+									<form th:action="@{/newTypePublication/{code}(code=${publication.codPublicacion})}" method="post"
+										class="form-horizontal">
+										<div class="modal-body">
+											<div class="form-group">
+												<label class="control-label col-md-4" for="typeName">Nombre:
+												</label>
+												<div class="col-md-6">
+													<input type="text" class="form-control" id="typeName"
+														name="typeName" placeholder="Nombre Tipo Publicación"
+														required />
+												</div>
+											</div>
+										</div>
+										<div class="modal-footer">
+											<button type="submit" class="btn btn-primary">Guardar</button>
+											<button type="button" class="btn btn-danger"
+												data-dismiss="modal">Cancelar</button>
+										</div>
+									</form>
+								</div>
+							</div>
+						</div>
+
+					</article>
+				</section>
+			</div>
+			<aside class="col-md-3">
+				<div class="list-group">
+					<th:block th:include="/fragments/profileSubmenu :: profileSubmenu"></th:block>
+				</div>
+			</aside>
+		</div>
+	</section>
+	<th:block th:include="/fragments/footer :: footer"></th:block>
+</body>
+</html>

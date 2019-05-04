@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	<div th:fragment="undergraduateStudiesSubmenu">
+		<p class="list-group-item active">
+			<span class="glyphicon glyphicon-hand-right"></span> Estudios de Pregrado
+		</p>
+		<div th:if="${session.user} == 'anonymous'">
+			<a role="button" onclick="selectSubmenu('undergraduateStudiesSubmenuShow', 'UndergraduateStudies');" class="list-group-item selected">Informaci&oacute;n General</a> 
+			<a role="button" onclick="selectSubmenu('undergraduateStudiesSubmenuShow', 'UndergraduateStudies');" class="list-group-item">Plan de Estudios</a>
+		</div>
+		<div th:unless="${session.user} == 'anonymous'">
+			<a href="/showUndergraduateStudiesAdmin" role="button" class="list-group-item selected">Informaci&oacute;n General</a> 
+			<a href="/showUndergraduateStudiesAdmin" role="button" class="list-group-item">Plan de Estudios</a>
+		</div>
+	</div>
+</html>

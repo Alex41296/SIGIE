@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+	<div th:fragment="showCoordinators">
+		<section class="posts col-md-9">
+			<article class="post clearflix">
+				<div class="row">
+					<h2 class="titulos text-center">Coordinadores de la Carrera</h2>
+					<div class="table-responsive">
+						<table class="table table-bordered table-hover">
+							<tr class="active encabezados">
+								<td>Nombre</td>
+								<td>Fecha Inicio Gesti&oacute;n</td>
+								<td>Fecha Final Gesti&oacute;n</td>
+								<td>Recinto Coordinaci&oacute;n</td>
+								<td></td>
+							</tr>
+							<tr th:each="entry : ${coordinators}">
+								<td><span th:text="${entry.docente.nombre_docente}"></span> <span th:text="${entry.docente.apellido_docente}"></span></td>
+								<td><span th:text="${entry.fechaInicioGestion}"></span></td>
+								<td><span th:text="${entry.fechaFinGestion}"></span></td>
+								<td><span th:text="${entry.recinto.nombreRecinto}"></span></td>
+								<td><a role="button" th:onclick="'viewTeacher(\''+${entry.docente.cod_docente}+'\');'">Ver Detalles</a></td>
+							</tr>
+						</table>
+					</div>
+					<div class="alert alert-warning text-center"
+						th:if="${alert} == 'error'">
+						<strong><img src="/img/cancel.png"
+							th:src="@{/img/cancel.png}" /> No hay datos para mostrar,
+							intentelo m&aacute;s tarde</strong>
+					</div>
+					<div class="alert alert-warning text-center"
+						th:if="${alert} == 'notdata'">
+						<strong><img src="/img/cancel.png"
+							th:src="@{/img/cancel.png}" /> No hay datos para mostrar</strong>
+					</div>
+				</div>
+			</article>
+		</section>
+	</div>
+</body>
+</html>

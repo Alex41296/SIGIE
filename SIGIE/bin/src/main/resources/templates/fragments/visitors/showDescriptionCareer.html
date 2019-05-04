@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head lang="es">
+<title>Inform&aacute;tica Empresarial</title>
+</head>
+<body>
+	<div th:fragment="showDescriptionCareer">
+		<section class="posts col-md-9">
+			<article class="post clearflix">
+				<div class="row">
+					<h2 class="titulos text-center">Inform&aacute;tica Empresarial</h2>
+					<div class="col-sm-12 text-left">
+						<div class="row"><h4 class="subtitle">Duraci&oacute;n: <span th:text="${duration}"></span></h4></div>
+						<div class="row"><h4 class="subtitle">Descripci&oacute;n </h4>
+							<blockquote><p class="text-justify" th:text="${description}"></p></blockquote>
+						</div>
+						<div class="row"><h4 class="subtitle">Perfil Profesional </h4>
+							<blockquote><p class="text-justify"  th:text="${professionalProfile}"></p></blockquote>
+						</div>
+					</div>
+				</div>
+			</article>
+		</section>
+	</div>
+</body>
+</html>

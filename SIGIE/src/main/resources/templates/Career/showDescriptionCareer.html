@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head lang="es">
+<title>Carrera</title>
+<th:block th:include="/fragments/head :: head"></th:block>
+</head>
+<body>
+	<th:block
+		th:include="/fragments/administration/headerSubmenuAdmin :: headerSubmenuAdmin"></th:block>
+	<section class="main container">
+		<div class="row">
+			<div id="content">
+				<section class="posts col-md-9">
+					<article class="post clearflix">
+						<h2 class="titulos text-center">Descripci&oacute;n de la Carrera</h2>
+						<div class="text-right">
+							<a role="button" class="btn btn-primary" data-target="#modal"
+								data-toggle="modal"> <span class="glyphicon glyphicon-edit"></span>
+								Editar informaci&oacute;n
+							</a>
+						</div>
+						<br>
+						<div class="alert alert-success text-center"
+							th:if="${alert} == 'sucess'" id="alert">
+							<button type="button" class="close" data-dismiss="alert">&times;</button>
+							<strong>Informaci&oacute;n actualizada</strong>
+						</div>
+						<div class="alert alert-warning text-center" id="alert"
+							th:if="${alert} == 'error'">
+							<button type="button" class="close" data-dismiss="alert">&times;</button>
+							<strong>Ha ocurrido un error intentelo m&aacute;s tarde!</strong>
+						</div>
+							
+						<div class="row"><h4 class="subtitle">Duraci&oacute;n: <span th:text="${career.duracionCarerra}"></span></h4></div>
+						<div class="row "><h4 class="subtitle">Descripci&oacute;n </h4>
+							<blockquote>
+								<strong th:if="${career.descripcionCarrera == null}"><img src="/img/cancel.png"
+								th:src="@{/img/cancel.png}" /> No hay informaci&oacute;n almacenada para esta secci&oacute;n</strong>
+								<p th:unless="${career.descripcionCarrera == null}" class="text-justify" th:text="${career.descripcionCarrera}"></p>
+							</blockquote>
+						</div>
+						<div class="row"><h4 class="subtitle">Perfil Profesional </h4>
+							<blockquote>
+								<strong th:if="${career.perfilProfesional == null}"><img src="/img/cancel.png"
+								th:src="@{/img/cancel.png}" /> No hay informaci&oacute;n almacenada para esta secci&oacute;n</strong>
+								<p th:unless="${career.perfilProfesional == null}" class="text-justify"  th:text="${career.perfilProfesional}"></p>
+							</blockquote>
+						</div>
+						<!-- Modal -->
+						<div class="modal fade" id="modal" role="dialog">
+							<div class="modal-dialog">
+								<!-- Modal content-->
+								<div class="modal-content">
+									<div class="modal-header alert alert-warning">
+										<button type="button" class="close" data-dismiss="modal">&times;</button>
+										<h4 class="modal-title">
+											<strong>Descripci&oacute;n de la Carrera</strong>
+										</h4>
+									</div>
+									<form th:action="@{/saveDescription}" method="post"
+										class="form-horizontal">
+										
+										<label class="control-label col-md-2" for="descripcionCarrera">Descripci&oacute;n:</label>
+										<div class="modal-body">
+											<textarea class="form-control" id="descripcionCarrera" name="descripcionCarrera" th:text="${career.descripcionCarrera}"
+												rows="5" required></textarea>
+										</div>
+										
+										<label class="control-label col-md-3" for="perfilProfesional">Perfil Profesional:</label>
+										<div class="modal-body">
+											<textarea class="form-control" id="perfilProfesional" name="perfilProfesional" th:text="${career.perfilProfesional}"
+												rows="5" required></textarea>
+										</div>
+										<div class="modal-footer">
+											<button type="submit" class="btn btn-primary">Actualizar</button>
+											<button type="button" class="btn btn-danger"
+												data-dismiss="modal">Cancelar</button>
+										</div>
+									</form>
+								</div>
+							</div>
+						</div>
+					</article>
+				</section>
+			</div>
+			<aside class="col-md-3">
+				<div class="list-group">
+					<th:block th:include="/fragments/aboutIESubmenu :: aboutIESubmenu"></th:block>
+				</div>
+			</aside>
+		</div>
+	</section>
+	<th:block th:include="/fragments/footer :: footer"></th:block>
+</body>
+</html>

@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head lang="es">
+<title>Perfil</title>
+<th:block th:include="/fragments/head :: head"></th:block>
+</head>
+<body>
+	<th:block
+		th:include="/fragments/administration/headerSubmenuAdmin :: headerSubmenuAdmin"></th:block>
+	<section class="main container">
+		<div class="row">
+			<div id="content">
+				<section class="posts col-md-9">
+					<article class="post clearflix">
+						<h2 class="titulos text-center">Publicaciones</h2>
+						<div class="text-right">
+							<a href="/newPublicationUser" class="btn btn-primary"> <span
+								class="glyphicon glyphicon-plus"></span> Agregar
+								Publicaci&oacute;n
+							</a>
+						</div>
+						<br>
+						<div class="alert alert-success text-center"
+							th:if="${alert} == 'sucess'" id="alert">
+							<button type="button" class="close" data-dismiss="alert">&times;</button>
+							<strong>Su informaci&oacute;n se ha actualizado con
+								&eacute;xito!</strong>
+						</div>
+						<div class="alert alert-warning text-center" id="alert"
+							th:if="${alert} == 'error'">
+							<button type="button" class="close" data-dismiss="alert">&times;</button>
+							<strong>Ha ocurrido un error intentelo m&aacute;s tarde!</strong>
+						</div>
+						<div class="table-responsive" th:if="${publications.size() > 0}">
+							<table class="table table-bordered table-hover">
+								<tr class="active encabezados">
+									<td>T&iacute;tulo</td>
+									<td>Idioma</td>
+									<td>Fecha Publicaci&oacute;n</td>
+									<td>Descripci&oacute;n</td>
+									<td>Documento</td>
+									<td>Tipo</td>
+									<td></td>
+									<td></td>
+								</tr>
+								<tr th:each="entry : ${publications}">
+									<td><span th:text="${entry.tituloPublicacion}"></span></td>
+									<td><span th:text="${entry.idiomaPublicacion}"></span></td>
+									<td><span th:text="${entry.fechaPublicacion}"></span></td>
+									<td><span th:text="${entry.descripcionPublicacion}"></span></td>
+									<td><span th:text="${entry.archivoPublicacion}"></span></td>
+									<td><span
+										th:text="${entry.tipoPublicacion.nombreTipoPublicacion}"></span></td>
+									<td><a role="button" data-toggle="modal"
+										th:attr="data-target='#'+${entry.codPublicacion}" > <span
+											class="glyphicon glyphicon-trash"></span>
+									</a> <!-- Modal -->
+										<div class="modal fade" th:id="${entry.codPublicacion}"
+											role="dialog">
+											<div class="modal-dialog">
+												<!-- Modal content-->
+												<div class="modal-content">
+													<div class="modal-header alert alert-warning">
+														<button type="button" class="close" data-dismiss="modal">&times;</button>
+														<h4 class="modal-title">
+															<strong>Eliminar Publicaci&oacute;n</strong>
+														</h4>
+													</div>
+													<div class="modal-body">
+														<p><strong>Esta seguro que desea eliminar la
+															publicaci&oacute;n?</strong> 
+														Una vez realizada la acci&oacute;n no podr&aacute;
+															recuperar la publicaci&oacute;n eliminada.</p>
+													</div>
+													<div class="modal-footer">
+														<a th:href="@{/deletePublicationUser/{code}(code=${entry.codPublicacion})}"
+															role="button" class="btn btn-danger"> Continuar </a>
+														<button type="button" class="btn btn-info"
+															data-dismiss="modal">Cancelar</button>
+													</div>
+												</div>
+											</div>
+										</div></td>
+									<td><a
+										th:href="@{/updatePublicationUser/{code}(code=${entry.codPublicacion})}"
+										role="button"><span class="glyphicon glyphicon-edit"></span>
+									</a></td>
+								</tr>
+							</table>
+						</div>
+						<div class="alert alert-warning text-center"
+							th:if="${publications.size() == 0}">
+							<strong><img src="/img/cancel.png"
+								th:src="@{/img/cancel.png}" /> El docente no ha realizado
+								ninguna publicaci&oacute;n</strong>
+						</div>
+					</article>
+				</section>
+			</div>
+			<aside class="col-md-3">
+				<div class="list-group">
+					<th:block th:include="/fragments/profileSubmenu :: profileSubmenu"></th:block>
+				</div>
+			</aside>
+		</div>
+	</section>
+	<th:block th:include="/fragments/footer :: footer"></th:block>
+</body>
+</html>

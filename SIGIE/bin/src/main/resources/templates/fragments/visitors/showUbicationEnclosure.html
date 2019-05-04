@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+	<div th:fragment="showUbicationEnclosure" onload="initMap();">
+		<section class="posts col-md-9">
+			<article class="post clearflix">
+				<div class="row">
+					<h2 class="titulos text-center" id="address" th:text="${title}"></h2>
+					<div class="miga-de-pan">
+						<ol class="breadcrumb">
+							<li class="active">Recintos: </li>
+							<li><a role="button" onclick="selectSubmenu('aboutIESubmenuShow', 'UbicationTurrialba');" class="active menuI">Turrialba </a></li>
+							<li><a role="button" onclick="selectSubmenu('aboutIESubmenuShow', 'UbicationParaiso');" class="menuI">Para&iacute;so </a></li>
+							<li><a role="button" onclick="selectSubmenu('aboutIESubmenuShow', 'UbicationGuapiles');" class="mennuI">Gu&aacute;piles</a></li>
+						</ol>
+					</div>
+					<div class="alert alert-warning text-center"
+						th:if="${alert} == 'error'">
+						<strong><img src="/img/cancel.png"
+							th:src="@{/img/cancel.png}" /> No hay datos para mostrar, intentelo m&aacute;s tarde</strong>
+					</div>
+					<div class="col-sm-12 text-center" id="map_canvas"></div>
+				</div>
+			</article>
+		</section>
+	</div>
+</body>
+</html>

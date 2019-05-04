@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	<body>
+		<header th:fragment="headerSubmenu">
+			<th:block th:include="/fragments/visitors/initialHeader :: initialHeader"></th:block>
+	
+			<nav class="navbar navbar-static-top" role="navigation">
+	
+				<div class="navbar-header">
+					<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navegacion">
+						<span class="sr-only">Men&uacute;</span> 
+						<span class="glyphicon glyphicon-menu-hamburger"></span>
+					</button>
+				</div>
+	
+				<div class="collapse navbar-collapse" id="navegacion">
+					<ul class="nav navbar-nav">
+						<li class="active menuI">
+							<a href="/home">
+								<span class="glyphicon glyphicon-home"></span> Inicio
+							</a>
+						</li>
+	
+						<li class="menuI">
+							<a role="button" onclick="selectSubmenu('aboutIESubmenuShow', 'History');"> 
+								<span class="glyphicon glyphicon-education"></span> Acerca de Inform&aacute;tica Empresarial
+							</a>
+						</li>
+	
+						<li class="menuI">
+							<a role="button" onclick="selectSubmenu('undergraduateStudiesSubmenuShow', 'UndergraduateStudies');"> 
+								<span class="glyphicon glyphicon-folder-open"></span> Estudios de Pregrado
+							</a>
+						</li>
+	
+						<li class="menuI">
+							<a role="button" onclick="selectSubmenu('investigationSubmenuShow', 'Investigation');"> 
+								<span class="glyphicon glyphicon-search"></span> Investigaci&oacute;n
+							</a>
+						</li>
+	
+						<li class="menuI">
+							<a role="button" onclick="selectSubmenu('socialActionSubmenuShow','SocialAction');"> 
+								<span class="glyphicon glyphicon-modal-window"></span> Acci&oacute;n Social
+							</a>
+						</li>
+	
+						<li class="menuI">
+							<a role="button" onclick="selectSubmenu('teachersSubmenuShow', 'Coordinators');"> 
+								<span class="glyphicon glyphicon-user"></span> Docentes
+							</a>
+						</li>
+	
+						<li class="menuI">
+							<a role="button" onclick="clearSubmenuAndShowInformation('News');"> 
+								<span class="glyphicon glyphicon-calendar"></span> Noticias
+							</a>
+						</li>
+	
+						<li class="menuI">
+							<a role="button" onclick="clearSubmenuAndShowInformation('SuggestionForm');"> 
+								<span class="glyphicon glyphicon-comment"></span> Sugerencias
+							</a>
+						</li>
+					</ul>
+				</div>
+			</nav>
+		</header>
+	</body>
+</html>

@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	<div th:fragment="teachersSubmenu">
+		<p class="list-group-item active">
+			<span class="glyphicon glyphicon-hand-right"></span> Docentes
+		</p>
+		<div th:if="${session.user} == 'anonymous'">
+			<a role="button" onclick="selectSubmenu('teachersSubmenuShow', 'Coordinators');" class="list-group-item selected" target="_blank">Coordinadores de carrera</a> 
+			<a role="button" onclick="selectSubmenu('teachersSubmenuShow', 'ParaisosTeachers');" class="list-group-item">Recinto Para&iacute;so</a>
+			<a role="button" onclick="selectSubmenu('teachersSubmenuShow', 'TurrialbasTeachers');" class="list-group-item">Recinto Turrialba</a>
+			<a role="button" onclick="selectSubmenu('teachersSubmenuShow', 'GuapilesTeachers');" class="list-group-item">Recinto Gu&aacute;piles</a>
+		</div>
+		<div th:unless="${session.user} == 'anonymous'">
+			<a href="/showCoordinatorsAdmin" role="button" class="list-group-item selected" target="_blank">Coordinadores de carrera</a> 
+			<a href="/showActivesTeachers" role="button" class="list-group-item">Activos</a>
+			<a href="/showInactivesTeachers" role="button" class="list-group-item">Inactivos</a>
+		</div>
+	</div>
+</html>

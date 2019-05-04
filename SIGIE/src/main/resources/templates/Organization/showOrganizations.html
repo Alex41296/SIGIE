@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+	<div th:fragment="showOrganizations">
+		<section class="posts col-md-9">
+			<article class="post clearflix">
+				<div class="row">
+					<h2 class="titulos text-center">Empresas para realizar curso de Pr&aacute;ctica</h2>
+					<div class="table-responsive">
+						<table class="table table-bordered table-hover">
+							<tr class="active encabezados">
+								<td>Nombre</td>
+								<td>Actividad Principal</td>
+								<td>Direcci&oacute;n</td>
+								<td>P&aacute;gina Web</td>
+								<td>Tel&eacute;fono</td>
+								<td>Correo</td>
+								<td>Pr&aacute;cticas realizadas</td>
+							</tr>
+							<tr th:each="entry : ${organizations}">
+								<td><span th:text="${entry.nombreEmpresa}"></span></td>
+								<td><span th:text="${entry.actividadPrincipal}"></span></td>
+								<td><span th:text="${entry.direccionEmpresa}"></span></td>
+								<td><span th:text="${entry.urlPaginaEmpresa}"></span></td>
+								<td><span th:text="${entry.telefonoEmpresa}"></span></td>
+								<td><span th:text="${entry.correoEmpresa}"></span></td>
+								<td><span th:text="${entry.practicas.size()}"></span></td>
+							</tr>
+						</table>
+					</div>
+					<div class="alert alert-warning text-center"
+						th:if="${alert} == 'error'">
+						<strong><img src="/img/cancel.png"
+							th:src="@{/img/cancel.png}" /> No hay datos para mostrar, intentelo m&aacute;s tarde</strong>
+					</div>
+				</div>
+			</article>
+		</section>
+	</div>
+</body>
+</html>
